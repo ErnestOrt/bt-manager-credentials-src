@@ -2,14 +2,15 @@ package org.ernest.applications.bt.db.manager.credentials.ms.services.impl;
 
 import java.util.UUID;
 
+import org.ernest.applications.bt.db.manager.credentials.ct.ActivateOutput;
 import org.ernest.applications.bt.db.manager.credentials.ct.CreateCredentialsInput;
 import org.ernest.applications.bt.db.manager.credentials.ct.ValidateInput;
 import org.ernest.applications.bt.db.manager.credentials.ct.ValidateOutput;
 import org.ernest.applications.bt.db.manager.credentials.ct.exceptions.ActivateUserException;
 import org.ernest.applications.bt.db.manager.credentials.ct.exceptions.CreateTokenException;
 import org.ernest.applications.bt.db.manager.credentials.ct.exceptions.CreateUserException;
-import org.ernest.applications.bt.db.manager.credentials.ms.entites.Token;
 import org.ernest.applications.bt.db.manager.credentials.ms.entites.Credentials;
+import org.ernest.applications.bt.db.manager.credentials.ms.entites.Token;
 import org.ernest.applications.bt.db.manager.credentials.ms.services.ValidateService;
 import org.lightcouch.CouchDbClient;
 import org.lightcouch.CouchDbProperties;
@@ -86,7 +87,7 @@ public class ValidateServiceImpl implements ValidateService{
 	}
 	
 	@Override
-	public String activate(String tokenActivate) throws ActivateUserException {
+	public ActivateOutput activate(String tokenActivate) throws ActivateUserException {
 		Token token = null;
 		try{
 			CouchDbClient dbClient = new CouchDbClient(buildCouchDbProperties(dbTokensName));
@@ -98,7 +99,7 @@ public class ValidateServiceImpl implements ValidateService{
 			credentials.setActivated(true);
 			dbClient.update(credentials);
 			dbClient.shutdown();
-			return credentials.getName();
+			return new ActivateOutput(credentials.get_id(), credentials.getName());
 		}catch(Exception e){
 			e.printStackTrace();
 			throw new ActivateUserException(e.getMessage());

@@ -1,5 +1,6 @@
 package org.ernest.applications.bt.db.manager.credentials.ms.controllers;
 
+import org.ernest.applications.bt.db.manager.credentials.ct.ActivateOutput;
 import org.ernest.applications.bt.db.manager.credentials.ct.CreateCredentialsInput;
 import org.ernest.applications.bt.db.manager.credentials.ct.ValidateInput;
 import org.ernest.applications.bt.db.manager.credentials.ct.ValidateOutput;
@@ -32,7 +33,7 @@ public class CredentialsController {
 	}
 	
 	@RequestMapping(path = "/activate/{token}", method = RequestMethod.GET)
-	public String activate(@PathVariable("token") String token) throws ActivateUserException {
+	public ActivateOutput activate(@PathVariable("token") String token) throws ActivateUserException {
 		return validateService.activate(token);
 	}
 	

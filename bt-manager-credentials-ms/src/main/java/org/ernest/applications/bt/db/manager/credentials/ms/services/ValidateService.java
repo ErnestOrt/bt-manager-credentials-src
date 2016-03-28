@@ -1,5 +1,6 @@
 package org.ernest.applications.bt.db.manager.credentials.ms.services;
 
+import org.ernest.applications.bt.db.manager.credentials.ct.ActivateOutput;
 import org.ernest.applications.bt.db.manager.credentials.ct.CreateCredentialsInput;
 import org.ernest.applications.bt.db.manager.credentials.ct.ValidateInput;
 import org.ernest.applications.bt.db.manager.credentials.ct.ValidateOutput;
@@ -15,7 +16,7 @@ public interface ValidateService {
 
 	String createToken(String userId, String email) throws CreateTokenException;
 
-	String activate(String token) throws ActivateUserException;
+	ActivateOutput activate(String token) throws ActivateUserException;
 
 	String recover(String email);	
 }
