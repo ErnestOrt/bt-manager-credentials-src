@@ -5,6 +5,8 @@ public class ActivateOutput {
 	private String mail;
 	private String name;
 	
+	public ActivateOutput(){}
+	
 	public ActivateOutput(String mail, String name) {
 		this.mail = mail;
 		this.name = name;
