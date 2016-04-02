@@ -41,4 +41,9 @@ public class CredentialsController {
 	public String recover(@RequestBody String email) throws CreateUserException, CreateTokenException {
 		return validateService.recover(email);
 	}
+	
+	@RequestMapping(path = "/retrieveid", method = RequestMethod.POST)
+	public String retrieveId(@RequestBody String email) throws CreateUserException, CreateTokenException, ActivateUserException {
+		return validateService.retrieve(email);
+	}
 }

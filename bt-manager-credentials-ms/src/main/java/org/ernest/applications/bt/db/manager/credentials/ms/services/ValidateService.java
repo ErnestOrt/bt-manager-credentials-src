@@ -18,5 +18,7 @@ public interface ValidateService {
 
 	ActivateOutput activate(String token) throws ActivateUserException;
 
-	String recover(String email);	
+	String recover(String email);
+
+	String retrieve(String email) throws ActivateUserException;	
 }

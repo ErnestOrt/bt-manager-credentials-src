@@ -116,6 +116,19 @@ public class ValidateServiceImpl implements ValidateService{
 			
 	}
 	
+	@Override
+	public String retrieve(String email) throws ActivateUserException {
+		CouchDbClient dbClient = new CouchDbClient(buildCouchDbProperties(dbCredentialsName));
+		Credentials credentials = dbClient.find(Credentials.class, email);
+		dbClient.shutdown();
+		
+		if(!credentials.isActivated()){
+			throw new ActivateUserException(email + " is not activated");
+		}		
+		
+		return credentials.getUserId();
+	}
+	
 	private CouchDbProperties buildCouchDbProperties(String dbName) {
 		CouchDbProperties properties = new CouchDbProperties();
 		properties.setDbName(dbName);
@@ -125,6 +138,8 @@ public class ValidateServiceImpl implements ValidateService{
 		properties.setProtocol("http");
 		return properties;
 	}
+
+
 
 
 }
